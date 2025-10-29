@@ -1,171 +1,469 @@
 import 'package:flutter/material.dart';
 import 'scan_screen.dart';
+import 'history_screen.dart';
+import 'setting_screen.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
+  late AnimationController _pulseController;
+  late AnimationController _floatController;
+  late AnimationController _rotateController;
+  late Animation<double> _pulseAnimation;
+  late Animation<double> _floatAnimation;
+  late Animation<double> _rotateAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    
+    _pulseController = AnimationController(
+      duration: const Duration(milliseconds: 2000),
+      vsync: this,
+    )..repeat(reverse: true);
+    
+    _floatController = AnimationController(
+      duration: const Duration(milliseconds: 3000),
+      vsync: this,
+    )..repeat(reverse: true);
+
+    _rotateController = AnimationController(
+      duration: const Duration(seconds: 20),
+      vsync: this,
+    )..repeat();
+    
+    _pulseAnimation = Tween<double>(begin: 1.0, end: 1.08).animate(
+      CurvedAnimation(parent: _pulseController, curve: Curves.easeInOut),
+    );
+    
+    _floatAnimation = Tween<double>(begin: -15, end: 15).animate(
+      CurvedAnimation(parent: _floatController, curve: Curves.easeInOut),
+    );
+
+    _rotateAnimation = Tween<double>(begin: 0, end: 1).animate(_rotateController);
+  }
+
+  @override
+  void dispose() {
+    _pulseController.dispose();
+    _floatController.dispose();
+    _rotateController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     final isSmallScreen = screenHeight < 700;
-    
+
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("SafeLinkGuard"),
-        centerTitle: true,
-        elevation: 0,
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        foregroundColor: Theme.of(context).textTheme.bodyLarge?.color,
-      ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: Column(
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color(0xFF1A1A2E),
+              Color(0xFF16213E),
+              Color(0xFF0F3460),
+              Color(0xFF533483),
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
+        child: SafeArea(
+          child: Stack(
             children: [
-              // Flexible hero section
-              Flexible(
-                flex: 2,
+              // Animated gradient orbs
+              ...List.generate(4, (index) {
+                return Positioned(
+                  top: 50 + (index * 180.0),
+                  left: index.isEven ? -100 : null,
+                  right: index.isOdd ? -100 : null,
+                  child: AnimatedBuilder(
+                    animation: _floatAnimation,
+                    builder: (context, child) {
+                      return Transform.translate(
+                        offset: Offset(
+                          index.isEven ? _floatAnimation.value : -_floatAnimation.value,
+                          _floatAnimation.value * (index % 2 == 0 ? 1 : -1),
+                        ),
+                        child: Container(
+                          width: 200 + (index * 40.0),
+                          height: 200 + (index * 40.0),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            gradient: RadialGradient(
+                              colors: [
+                                [
+                                  const Color(0xFF00D4FF),
+                                  const Color(0xFF7B2CBF),
+                                  const Color(0xFFFF006E),
+                                  const Color(0xFFFB5607),
+                                ][index].withOpacity(0.15),
+                                Colors.transparent,
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                );
+              }),
+              
+              // Main content
+              Padding(
+                padding: const EdgeInsets.all(24.0),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    // Glassmorphic Header
                     Container(
-                      padding: EdgeInsets.all(isSmallScreen ? 15 : 20),
+                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                       decoration: BoxDecoration(
-                        color: Colors.blue.shade50,
-                        shape: BoxShape.circle,
+                        gradient: LinearGradient(
+                          colors: [
+                            Colors.white.withOpacity(0.1),
+                            Colors.white.withOpacity(0.05),
+                          ],
+                        ),
+                        borderRadius: BorderRadius.circular(24),
+                        border: Border.all(
+                          color: Colors.white.withOpacity(0.2),
+                          width: 1.5,
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.1),
+                            blurRadius: 30,
+                            offset: const Offset(0, 10),
+                          ),
+                        ],
                       ),
-                      child: Icon(
-                        Icons.security,
-                        size: isSmallScreen ? 50 : 70,
-                        color: Colors.blue.shade700,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              gradient: const LinearGradient(
+                                colors: [Color(0xFF00D4FF), Color(0xFF7B2CBF)],
+                              ),
+                              borderRadius: BorderRadius.circular(12),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: const Color(0xFF00D4FF).withOpacity(0.5),
+                                  blurRadius: 12,
+                                  spreadRadius: 0,
+                                ),
+                              ],
+                            ),
+                            child: const Icon(Icons.shield_rounded, color: Colors.white, size: 24),
+                          ),
+                          const SizedBox(width: 16),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "SafeLinkGuard",
+                                style: TextStyle(
+                                  fontSize: isSmallScreen ? 20 : 24,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                  letterSpacing: 0.5,
+                                ),
+                              ),
+                              Text(
+                                "AI-Powered Protection",
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: const Color(0xFF00D4FF),
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
-                    SizedBox(height: isSmallScreen ? 12 : 20),
+                    
+                    const SizedBox(height: 20),
                     
                     Text(
-                      "SafeLinkGuard",
-                      style: TextStyle(
-                        fontSize: isSmallScreen ? 20 : 24,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.blue,
-                      ),
-                    ),
-                    SizedBox(height: isSmallScreen ? 6 : 12),
-                    
-                    Text(
-                      "Protect yourself from malicious links.\nScan any URL instantly!",
+                      "Instant URL Security Analysis",
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontSize: isSmallScreen ? 13 : 15,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.grey.shade600,
-                        height: 1.4,
+                        fontSize: isSmallScreen ? 15 : 17,
+                        color: Colors.white.withOpacity(0.85),
+                        fontWeight: FontWeight.w500,
+                        letterSpacing: 0.3,
                       ),
                     ),
-                  ],
-                ),
-              ),
-              
-              // Buttons section
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                    foregroundColor: Colors.white,
-                    padding: EdgeInsets.symmetric(
-                      vertical: isSmallScreen ? 12 : 16, 
-                      horizontal: 24
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    elevation: 2,
-                  ),
-                  icon: const Icon(Icons.qr_code_scanner),
-                  label: Text(
-                    "Scan a Link",
-                    style: TextStyle(
-                      fontSize: isSmallScreen ? 15 : 17, 
-                      fontWeight: FontWeight.w600
-                    ),
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (_) => const ScanScreen()),
-                    );
-                  },
-                ),
-              ),
-              
-              SizedBox(height: isSmallScreen ? 8 : 12),
-              
-              Row(
-                children: [
-                  Expanded(
-                    child: OutlinedButton.icon(
-                      style: OutlinedButton.styleFrom(
-                        padding: EdgeInsets.symmetric(vertical: isSmallScreen ? 8 : 10),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        side: BorderSide(color: Colors.grey.shade300),
-                      ),
-                      icon: Icon(Icons.history, color: Colors.grey.shade600, size: 16),
-                      label: Text(
-                        "History",
-                        style: TextStyle(
-                          color: Colors.grey.shade600, 
-                          fontSize: isSmallScreen ? 12 : 13
-                        ),
-                      ),
-                      onPressed: () {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text("History feature coming soon!")),
+                    
+                    const Spacer(),
+
+                    // Central animated shield
+                    AnimatedBuilder(
+                      animation: _pulseAnimation,
+                      builder: (context, child) {
+                        return Transform.scale(
+                          scale: _pulseAnimation.value,
+                          child: AnimatedBuilder(
+                            animation: _rotateAnimation,
+                            builder: (context, child) {
+                              return Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  // Outer rotating ring
+                                  Transform.rotate(
+                                    angle: _rotateAnimation.value * 6.28,
+                                    child: Container(
+                                      width: 220,
+                                      height: 220,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        border: Border.all(
+                                          color: const Color(0xFF00D4FF).withOpacity(0.3),
+                                          width: 2,
+                                        ),
+                                      ),
+                                      child: Stack(
+                                        children: List.generate(6, (index) {
+                                          return Positioned(
+                                            top: 110 - 8 + 100 * (index % 2 == 0 ? 1 : -1),
+                                            left: 110 - 8 + 100 * ((index ~/ 2) % 2 == 0 ? 1 : -1) * (index.isEven ? 0.5 : -0.5),
+                                            child: Container(
+                                              width: 16,
+                                              height: 16,
+                                              decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                gradient: LinearGradient(
+                                                  colors: [
+                                                    const Color(0xFF00D4FF),
+                                                    const Color(0xFF7B2CBF),
+                                                  ],
+                                                ),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    color: const Color(0xFF00D4FF).withOpacity(0.6),
+                                                    blurRadius: 8,
+                                                    spreadRadius: 2,
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          );
+                                        }),
+                                      ),
+                                    ),
+                                  ),
+                                  // Main shield
+                                  Container(
+                                    padding: const EdgeInsets.all(50),
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      gradient: const LinearGradient(
+                                        colors: [
+                                          Color(0xFF00D4FF),
+                                          Color(0xFF7B2CBF),
+                                          Color(0xFFFF006E),
+                                        ],
+                                        begin: Alignment.topLeft,
+                                        end: Alignment.bottomRight,
+                                      ),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: const Color(0xFF00D4FF).withOpacity(0.5),
+                                          blurRadius: 40,
+                                          spreadRadius: 5,
+                                        ),
+                                        BoxShadow(
+                                          color: const Color(0xFF7B2CBF).withOpacity(0.5),
+                                          blurRadius: 60,
+                                          spreadRadius: -5,
+                                        ),
+                                      ],
+                                    ),
+                                    child: Container(
+                                      padding: const EdgeInsets.all(25),
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        gradient: LinearGradient(
+                                          colors: [
+                                            Colors.white.withOpacity(0.2),
+                                            Colors.white.withOpacity(0.1),
+                                          ],
+                                        ),
+                                      ),
+                                      child: const Icon(
+                                        Icons.verified_user_rounded,
+                                        size: 90,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              );
+                            },
+                          ),
                         );
                       },
                     ),
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: OutlinedButton.icon(
-                      style: OutlinedButton.styleFrom(
-                        padding: EdgeInsets.symmetric(vertical: isSmallScreen ? 8 : 10),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
+
+                    const Spacer(),
+
+                    // Modern stats container
+                    Container(
+                      padding: const EdgeInsets.all(24),
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            Colors.white.withOpacity(0.1),
+                            Colors.white.withOpacity(0.05),
+                          ],
                         ),
-                        side: BorderSide(color: Colors.grey.shade300),
-                      ),
-                      icon: Icon(Icons.settings, color: Colors.grey.shade600, size: 16),
-                      label: Text(
-                        "Settings",
-                        style: TextStyle(
-                          color: Colors.grey.shade600,
-                          fontSize: isSmallScreen ? 12 : 13
+                        borderRadius: BorderRadius.circular(24),
+                        border: Border.all(
+                          color: Colors.white.withOpacity(0.2),
                         ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.2),
+                            blurRadius: 20,
+                            offset: const Offset(0, 10),
+                          ),
+                        ],
                       ),
-                      onPressed: () {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text("Settings feature coming soon!")),
-                        );
-                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          _buildModernStat("99.9%", "Accuracy", Icons.check_circle_rounded, const Color(0xFF00F260)),
+                          _buildDivider(),
+                          _buildModernStat("1M+", "Scans", Icons.analytics_rounded, const Color(0xFF00D4FF)),
+                          _buildDivider(),
+                          _buildModernStat("24/7", "Active", Icons.security_rounded, const Color(0xFFFF006E)),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              
-              // Flexible features section - only show if there's space
-              Flexible(
-                flex: 1,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    if (!isSmallScreen) ...[
-                      SizedBox(height: isSmallScreen ? 16 : 24),
-                      _buildCompactFeatureRow(),
-                    ],
-                    const SizedBox(height: 16),
+
+                    const SizedBox(height: 28),
+
+                    // Primary scan button
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(22),
+                        gradient: const LinearGradient(
+                          colors: [
+                            Color(0xFF00D4FF),
+                            Color(0xFF7B2CBF),
+                            Color(0xFFFF006E),
+                          ],
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: const Color(0xFF00D4FF).withOpacity(0.5),
+                            blurRadius: 25,
+                            offset: const Offset(0, 12),
+                          ),
+                        ],
+                      ),
+                      child: Material(
+                        color: Colors.transparent,
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (_) => const ScanScreen()),
+                            );
+                          },
+                          borderRadius: BorderRadius.circular(22),
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                              vertical: isSmallScreen ? 20 : 24,
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.all(8),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white.withOpacity(0.2),
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  child: const Icon(Icons.radar_rounded, color: Colors.white, size: 28),
+                                ),
+                                const SizedBox(width: 16),
+                                Text(
+                                  "Start Scanning",
+                                  style: TextStyle(
+                                    fontSize: isSmallScreen ? 19 : 22,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                    letterSpacing: 0.5,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    const SizedBox(height: 18),
+
+                    // Navigation cards
+                    Row(
+                      children: [
+                        Expanded(
+                          child: _buildNavCard(
+                            icon: Icons.history_rounded,
+                            label: "History",
+                            colors: const [Color(0xFF00D4FF), Color(0xFF0066FF)],
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (_) => const HistoryScreen()),
+                              );
+                            },
+                          ),
+                        ),
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: _buildNavCard(
+                            icon: Icons.settings_rounded,
+                            label: "Settings",
+                            colors: const [Color(0xFFFF006E), Color(0xFF7B2CBF)],
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (_) => const SettingsScreen()),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    const Spacer(),
+
+                    // Feature badges
+                    Wrap(
+                      spacing: 10,
+                      runSpacing: 10,
+                      alignment: WrapAlignment.center,
+                      children: [
+                        _buildFeatureBadge(Icons.bolt_rounded, "Ultra Fast", const Color(0xFFFB5607)),
+                        _buildFeatureBadge(Icons.lock_rounded, "Encrypted", const Color(0xFF00F260)),
+                        _buildFeatureBadge(Icons.cloud_off_rounded, "Offline", const Color(0xFF00D4FF)),
+                        _buildFeatureBadge(Icons.verified_rounded, "Verified", const Color(0xFFFF006E)),
+                      ],
+                    ),
                   ],
                 ),
               ),
@@ -175,58 +473,151 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
-  
-  Widget _buildCompactFeatureRow() {
-    return Row(
+
+  Widget _buildModernStat(String value, String label, IconData icon, Color color) {
+    return Column(
       children: [
-        Expanded(
-          child: _buildMiniFeature(
-            icon: Icons.speed,
-            title: "Fast",
-            color: Colors.green,
+        Container(
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: color.withOpacity(0.2),
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(
+              color: color.withOpacity(0.4),
+              width: 1.5,
+            ),
+          ),
+          child: Icon(icon, color: color, size: 24),
+        ),
+        const SizedBox(height: 10),
+        Text(
+          value,
+          style: const TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
           ),
         ),
-        const SizedBox(width: 8),
-        Expanded(
-          child: _buildMiniFeature(
-            icon: Icons.shield,
-            title: "Secure",
-            color: Colors.orange,
-          ),
-        ),
-        const SizedBox(width: 8),
-        Expanded(
-          child: _buildMiniFeature(
-            icon: Icons.privacy_tip,
-            title: "Private",
-            color: Colors.purple,
+        const SizedBox(height: 2),
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 11,
+            color: Colors.white.withOpacity(0.7),
+            fontWeight: FontWeight.w500,
           ),
         ),
       ],
     );
   }
-  
-  Widget _buildMiniFeature({
+
+  Widget _buildDivider() {
+    return Container(
+      width: 1.5,
+      height: 50,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            Colors.transparent,
+            Colors.white.withOpacity(0.3),
+            Colors.transparent,
+          ],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildNavCard({
     required IconData icon,
-    required String title,
-    required Color color,
+    required String label,
+    required List<Color> colors,
+    required VoidCallback onTap,
   }) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(8),
+        gradient: LinearGradient(
+          colors: [
+            colors[0].withOpacity(0.8),
+            colors[1].withOpacity(0.8),
+          ],
+        ),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(
+          color: Colors.white.withOpacity(0.2),
+          width: 1.5,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: colors[0].withOpacity(0.4),
+            blurRadius: 20,
+            offset: const Offset(0, 10),
+          ),
+        ],
       ),
-      child: Column(
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(20),
+          child: Container(
+            padding: const EdgeInsets.symmetric(vertical: 24),
+            child: Column(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(14),
+                  ),
+                  child: Icon(icon, color: Colors.white, size: 32),
+                ),
+                const SizedBox(height: 12),
+                Text(
+                  label,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 0.3,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildFeatureBadge(IconData icon, String title, Color color) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            Colors.white.withOpacity(0.15),
+            Colors.white.withOpacity(0.05),
+          ],
+        ),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(
+          color: color.withOpacity(0.4),
+          width: 1.5,
+        ),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, color: color, size: 20),
-          const SizedBox(height: 4),
+          Icon(icon, color: color, size: 18),
+          const SizedBox(width: 8),
           Text(
             title,
-            style: TextStyle(
-              fontSize: 12,
+            style: const TextStyle(
+              fontSize: 13,
               fontWeight: FontWeight.w600,
-              color: color,
+              color: Colors.white,
             ),
           ),
         ],
