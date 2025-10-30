@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CyberGuard Pro - Advanced Security Suite</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
         
         * {
             margin: 0;
@@ -14,861 +14,783 @@
         }
 
         :root {
-            --neon-cyan: #00fff9;
-            --neon-pink: #ff00ff;
-            --neon-purple: #b026ff;
-            --neon-green: #39ff14;
-            --neon-orange: #ff6600;
-            --neon-blue: #0080ff;
-            --dark-bg: #0a0a0f;
-            --dark-card: #14141f;
-            --dark-accent: #1a1a2e;
+            --primary: #00d9ff;
+            --primary-dark: #00a8cc;
+            --secondary: #7c3aed;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --dark-bg: #0f0f1e;
+            --dark-card: #1a1a2e;
+            --dark-elevated: #252538;
+            --text-primary: #ffffff;
+            --text-secondary: #a0aec0;
+            --border: rgba(255, 255, 255, 0.1);
         }
 
         body {
-            font-family: 'Rajdhani', sans-serif;
+            font-family: 'Inter', sans-serif;
             background: var(--dark-bg);
-            color: var(--neon-cyan);
-            overflow-x: hidden;
+            color: var(--text-primary);
+            line-height: 1.6;
             min-height: 100vh;
-            position: relative;
-        }
-
-        /* Animated background */
-        .cyber-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                linear-gradient(45deg, transparent 48%, var(--neon-cyan) 49%, var(--neon-cyan) 51%, transparent 52%),
-                linear-gradient(-45deg, transparent 48%, var(--neon-purple) 49%, var(--neon-purple) 51%, transparent 52%);
-            background-size: 40px 40px;
-            opacity: 0.03;
-            animation: gridScroll 20s linear infinite;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        @keyframes gridScroll {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(40px, 40px); }
-        }
-
-        .scanner-line {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
-            animation: scan 4s ease-in-out infinite;
-            pointer-events: none;
-            z-index: 1;
-            box-shadow: 0 0 20px var(--neon-cyan);
-        }
-
-        @keyframes scan {
-            0%, 100% { transform: translateY(0); opacity: 0; }
-            50% { transform: translateY(100vh); opacity: 1; }
         }
 
         .container {
-            max-width: 1600px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 20px;
-            position: relative;
-            z-index: 10;
         }
 
-        /* Header with glitch effect */
+        /* Header */
         .header {
+            background: var(--dark-card);
+            border-radius: 16px;
+            padding: 20px 30px;
+            margin-bottom: 30px;
+            border: 1px solid var(--border);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 25px 40px;
-            background: linear-gradient(135deg, rgba(20, 20, 31, 0.95), rgba(26, 26, 46, 0.95));
-            backdrop-filter: blur(20px);
-            border-radius: 20px;
-            border: 2px solid var(--neon-cyan);
-            margin-bottom: 30px;
-            box-shadow: 
-                0 0 40px rgba(0, 255, 249, 0.3),
-                inset 0 0 20px rgba(0, 255, 249, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .header::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -100%;
-            width: 100%;
-            height: calc(100% + 4px);
-            background: linear-gradient(90deg, transparent, rgba(0, 255, 249, 0.3), transparent);
-            animation: borderGlow 3s linear infinite;
-        }
-
-        @keyframes borderGlow {
-            to { left: 200%; }
+            flex-wrap: wrap;
+            gap: 20px;
         }
 
         .logo {
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 15px;
         }
 
         .logo-icon {
-            width: 70px;
-            height: 70px;
-            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
-            border-radius: 15px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 40px;
-            position: relative;
-            animation: pulse 2s ease-in-out infinite;
-            box-shadow: 
-                0 0 30px var(--neon-cyan),
-                0 0 60px var(--neon-purple),
-                inset 0 0 20px rgba(255, 255, 255, 0.2);
+            font-size: 28px;
         }
 
-        @keyframes pulse {
-            0%, 100% { 
-                transform: scale(1);
-                box-shadow: 
-                    0 0 30px var(--neon-cyan),
-                    0 0 60px var(--neon-purple);
-            }
-            50% { 
-                transform: scale(1.05);
-                box-shadow: 
-                    0 0 50px var(--neon-cyan),
-                    0 0 100px var(--neon-purple);
-            }
-        }
-
-        .logo h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 32px;
-            font-weight: 900;
-            color: var(--neon-cyan);
-            text-shadow: 
-                0 0 10px var(--neon-cyan),
-                0 0 20px var(--neon-cyan),
-                0 0 30px var(--neon-cyan);
-            letter-spacing: 2px;
-            position: relative;
+        .logo-text h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .logo-subtitle {
             font-size: 12px;
-            color: var(--neon-purple);
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            font-weight: 700;
+            color: var(--text-secondary);
+            font-weight: 500;
         }
 
+        /* Navigation */
         .nav-tabs {
             display: flex;
-            gap: 15px;
-            background: rgba(0, 0, 0, 0.4);
-            padding: 10px;
-            border-radius: 15px;
-            border: 1px solid rgba(0, 255, 249, 0.3);
+            gap: 8px;
+            background: var(--dark-elevated);
+            padding: 6px;
+            border-radius: 12px;
+            flex-wrap: wrap;
         }
 
         .nav-tab {
-            padding: 15px 25px;
+            padding: 10px 18px;
             background: transparent;
-            border: 2px solid transparent;
-            border-radius: 12px;
+            border: none;
+            border-radius: 8px;
             cursor: pointer;
-            transition: all 0.3s;
-            font-size: 16px;
-            font-weight: 700;
-            color: rgba(0, 255, 249, 0.6);
-            font-family: 'Orbitron', sans-serif;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .nav-tab::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 255, 249, 0.3), transparent);
-            transition: left 0.5s;
-        }
-
-        .nav-tab:hover::before {
-            left: 100%;
+            transition: all 0.2s;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            white-space: nowrap;
         }
 
         .nav-tab:hover {
-            color: var(--neon-cyan);
-            border-color: var(--neon-cyan);
-            box-shadow: 0 0 20px rgba(0, 255, 249, 0.5);
+            background: rgba(0, 217, 255, 0.1);
+            color: var(--primary);
         }
 
         .nav-tab.active {
-            color: var(--neon-cyan);
-            background: rgba(0, 255, 249, 0.1);
-            border-color: var(--neon-cyan);
-            box-shadow: 
-                0 0 20px rgba(0, 255, 249, 0.5),
-                inset 0 0 20px rgba(0, 255, 249, 0.2);
+            background: var(--primary);
+            color: var(--dark-bg);
         }
 
+        /* Sections */
         .section {
             display: none;
-            animation: sectionFadeIn 0.6s ease-out;
+            animation: fadeIn 0.3s ease-out;
         }
 
         .section.active {
             display: block;
         }
 
-        @keyframes sectionFadeIn {
-            from { 
-                opacity: 0; 
-                transform: translateY(30px);
-            }
-            to { 
-                opacity: 1; 
-                transform: translateY(0);
-            }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Dashboard */
-        .dashboard-grid {
+        /* Dashboard Stats */
+        .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
             margin-bottom: 30px;
         }
 
-        .cyber-card {
-            background: linear-gradient(135deg, rgba(20, 20, 31, 0.95), rgba(26, 26, 46, 0.95));
-            backdrop-filter: blur(20px);
-            padding: 35px;
-            border-radius: 20px;
-            border: 2px solid;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s;
-            cursor: pointer;
+        .stat-card {
+            background: var(--dark-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            transition: transform 0.2s;
         }
 
-        .cyber-card::before {
+        .stat-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .stat-icon {
+            font-size: 24px;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            font-family: 'Space Grotesk', sans-serif;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* Feature Cards */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .feature-card {
+            background: var(--dark-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.05), transparent);
-            transform: translateX(-100%);
-            transition: transform 0.6s;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transition: transform 0.3s;
         }
 
-        .cyber-card:hover::before {
-            transform: translateX(100%);
+        .feature-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary);
         }
 
-        .cyber-card:hover {
-            transform: translateY(-10px) scale(1.02);
+        .feature-card:hover::before {
+            transform: scaleX(1);
         }
 
-        .cyber-card.cyan {
-            border-color: var(--neon-cyan);
-            box-shadow: 0 0 30px rgba(0, 255, 249, 0.3);
-        }
-
-        .cyber-card.cyan:hover {
-            box-shadow: 0 0 50px rgba(0, 255, 249, 0.6);
-        }
-
-        .cyber-card.purple {
-            border-color: var(--neon-purple);
-            box-shadow: 0 0 30px rgba(176, 38, 255, 0.3);
-        }
-
-        .cyber-card.purple:hover {
-            box-shadow: 0 0 50px rgba(176, 38, 255, 0.6);
-        }
-
-        .cyber-card.pink {
-            border-color: var(--neon-pink);
-            box-shadow: 0 0 30px rgba(255, 0, 255, 0.3);
-        }
-
-        .cyber-card.pink:hover {
-            box-shadow: 0 0 50px rgba(255, 0, 255, 0.6);
-        }
-
-        .cyber-card.green {
-            border-color: var(--neon-green);
-            box-shadow: 0 0 30px rgba(57, 255, 20, 0.3);
-        }
-
-        .cyber-card.green:hover {
-            box-shadow: 0 0 50px rgba(57, 255, 20, 0.6);
-        }
-
-        .card-icon {
-            font-size: 60px;
+        .feature-icon {
+            font-size: 48px;
             margin-bottom: 20px;
             display: inline-block;
-            filter: drop-shadow(0 0 20px currentColor);
-            animation: iconFloat 3s ease-in-out infinite;
         }
 
-        @keyframes iconFloat {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+        .feature-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            font-family: 'Space Grotesk', sans-serif;
         }
 
-        .card-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 24px;
-            font-weight: 800;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .card-description {
-            font-size: 16px;
-            opacity: 0.8;
+        .feature-description {
+            font-size: 14px;
+            color: var(--text-secondary);
             line-height: 1.6;
             margin-bottom: 20px;
         }
 
-        .cyber-button {
-            padding: 15px 30px;
-            background: transparent;
-            border: 2px solid currentColor;
+        .btn {
+            padding: 12px 24px;
             border-radius: 10px;
-            color: inherit;
-            font-weight: 700;
+            font-weight: 600;
+            font-size: 14px;
             cursor: pointer;
-            transition: all 0.3s;
-            font-family: 'Orbitron', sans-serif;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            position: relative;
-            overflow: hidden;
+            transition: all 0.2s;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Inter', sans-serif;
         }
 
-        .cyber-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: currentColor;
-            opacity: 0.2;
-            transition: left 0.3s;
+        .btn-primary {
+            background: var(--primary);
+            color: var(--dark-bg);
         }
 
-        .cyber-button:hover::before {
-            left: 0;
+        .btn-primary:hover:not(:disabled) {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
         }
 
-        .cyber-button:hover {
-            box-shadow: 0 0 30px currentColor;
-            transform: scale(1.05);
+        .btn-secondary {
+            background: var(--dark-elevated);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
         }
 
-        /* Scanner Section */
+        .btn-secondary:hover:not(:disabled) {
+            background: var(--dark-card);
+            border-color: var(--primary);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Scanner Container */
         .scanner-container {
-            max-width: 1200px;
+            max-width: 900px;
             margin: 0 auto;
         }
 
-        .scan-box {
-            background: linear-gradient(135deg, rgba(20, 20, 31, 0.95), rgba(26, 26, 46, 0.95));
-            backdrop-filter: blur(20px);
-            padding: 50px;
-            border-radius: 25px;
-            border: 2px solid var(--neon-cyan);
-            box-shadow: 0 0 50px rgba(0, 255, 249, 0.3);
-            position: relative;
+        .scan-card {
+            background: var(--dark-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 40px;
+        }
+
+        .scan-header {
+            text-align: center;
+            margin-bottom: 40px;
         }
 
         .scan-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 36px;
-            font-weight: 900;
-            text-align: center;
-            color: var(--neon-cyan);
-            text-shadow: 0 0 20px var(--neon-cyan);
-            margin-bottom: 40px;
-            text-transform: uppercase;
-            letter-spacing: 3px;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            font-family: 'Space Grotesk', sans-serif;
         }
 
-        .input-group {
-            position: relative;
-            margin-bottom: 25px;
-        }
-
-        .cyber-input {
-            width: 100%;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.5);
-            border: 2px solid rgba(0, 255, 249, 0.3);
-            border-radius: 15px;
-            color: var(--neon-cyan);
+        .scan-subtitle {
             font-size: 16px;
+            color: var(--text-secondary);
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
             font-weight: 600;
-            font-family: 'Rajdhani', sans-serif;
-            transition: all 0.3s;
+            margin-bottom: 8px;
+            color: var(--text-primary);
         }
 
-        .cyber-input:focus {
+        .form-input {
+            width: 100%;
+            padding: 14px 18px;
+            background: var(--dark-elevated);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 15px;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.2s;
+        }
+
+        .form-input:focus {
             outline: none;
-            border-color: var(--neon-cyan);
-            box-shadow: 0 0 30px rgba(0, 255, 249, 0.5);
-            background: rgba(0, 0, 0, 0.7);
+            border-color: var(--primary);
+            background: var(--dark-card);
         }
 
-        .cyber-input::placeholder {
-            color: rgba(0, 255, 249, 0.4);
+        .form-input::placeholder {
+            color: var(--text-secondary);
         }
 
-        .cyber-textarea {
+        .form-textarea {
             min-height: 150px;
             resize: vertical;
         }
 
-        .scan-button {
-            width: 100%;
-            padding: 20px;
-            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
-            border: none;
-            border-radius: 15px;
-            color: #fff;
-            font-size: 20px;
-            font-weight: 900;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-family: 'Orbitron', sans-serif;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 0 40px rgba(0, 255, 249, 0.5);
+        .form-help {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-top: 6px;
         }
 
-        .scan-button:hover:not(:disabled) {
-            transform: translateY(-5px);
-            box-shadow: 0 0 60px rgba(0, 255, 249, 0.8);
-        }
-
-        .scan-button:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        .loading-spinner {
-            width: 24px;
-            height: 24px;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            border-top: 3px solid #fff;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-            display: inline-block;
-            margin-right: 10px;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* Results */
-        .result-container {
-            margin-top: 40px;
-            padding: 40px;
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: 20px;
-            border: 2px solid;
-            display: none;
-            animation: resultSlide 0.6s ease-out;
-        }
-
-        @keyframes resultSlide {
-            from { 
-                opacity: 0;
-                transform: translateY(30px) scale(0.95);
-            }
-            to { 
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-
-        .result-container.safe {
-            border-color: var(--neon-green);
-            box-shadow: 0 0 50px rgba(57, 255, 20, 0.4);
-        }
-
-        .result-container.threat {
-            border-color: var(--neon-pink);
-            box-shadow: 0 0 50px rgba(255, 0, 255, 0.4);
-        }
-
-        .result-header {
+        /* File Drop Zone */
+        .drop-zone {
+            border: 2px dashed var(--border);
+            border-radius: 16px;
+            padding: 48px;
             text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .result-icon {
-            font-size: 100px;
-            margin-bottom: 20px;
-            display: inline-block;
-            animation: iconPop 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            filter: drop-shadow(0 0 30px currentColor);
-        }
-
-        @keyframes iconPop {
-            0% { transform: scale(0) rotate(-180deg); }
-            100% { transform: scale(1) rotate(0); }
-        }
-
-        .result-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 32px;
-            font-weight: 900;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .result-subtitle {
-            font-size: 18px;
-            opacity: 0.8;
-        }
-
-        .threat-list {
-            margin-top: 30px;
-        }
-
-        .threat-item {
-            background: rgba(255, 0, 255, 0.1);
-            border-left: 4px solid var(--neon-pink);
-            padding: 20px;
-            margin-bottom: 15px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            animation: threatSlide 0.4s ease-out;
-        }
-
-        @keyframes threatSlide {
-            from {
-                opacity: 0;
-                transform: translateX(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .threat-severity {
-            padding: 8px 16px;
-            border-radius: 8px;
-            font-weight: 700;
-            text-transform: uppercase;
-            font-size: 12px;
-            letter-spacing: 1px;
-        }
-
-        .severity-high {
-            background: rgba(255, 0, 255, 0.3);
-            color: var(--neon-pink);
-            border: 1px solid var(--neon-pink);
-        }
-
-        .severity-medium {
-            background: rgba(255, 102, 0, 0.3);
-            color: var(--neon-orange);
-            border: 1px solid var(--neon-orange);
-        }
-
-        .severity-low {
-            background: rgba(0, 128, 255, 0.3);
-            color: var(--neon-blue);
-            border: 1px solid var(--neon-blue);
-        }
-
-        /* Phone Scanner */
-        .file-drop-zone {
-            border: 3px dashed rgba(0, 255, 249, 0.4);
-            border-radius: 20px;
-            padding: 60px;
-            text-align: center;
-            margin-bottom: 30px;
             transition: all 0.3s;
             cursor: pointer;
-            position: relative;
+            background: var(--dark-elevated);
         }
 
-        .file-drop-zone:hover {
-            border-color: var(--neon-cyan);
-            background: rgba(0, 255, 249, 0.05);
-            box-shadow: 0 0 30px rgba(0, 255, 249, 0.3);
+        .drop-zone:hover {
+            border-color: var(--primary);
+            background: rgba(0, 217, 255, 0.05);
         }
 
-        .file-drop-zone.drag-over {
-            border-color: var(--neon-green);
-            background: rgba(57, 255, 20, 0.1);
-            box-shadow: 0 0 40px rgba(57, 255, 20, 0.5);
+        .drop-zone.drag-over {
+            border-color: var(--success);
+            background: rgba(16, 185, 129, 0.1);
         }
 
         .drop-icon {
-            font-size: 80px;
+            font-size: 64px;
             margin-bottom: 20px;
-            color: var(--neon-cyan);
-            filter: drop-shadow(0 0 20px var(--neon-cyan));
+            opacity: 0.6;
         }
 
-        /* Progress bar */
-        .scan-progress {
+        .drop-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .drop-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        /* Progress Bar */
+        .progress-container {
             margin-top: 30px;
             display: none;
         }
 
         .progress-bar {
             width: 100%;
-            height: 30px;
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: 15px;
+            height: 8px;
+            background: var(--dark-elevated);
+            border-radius: 10px;
             overflow: hidden;
-            border: 2px solid rgba(0, 255, 249, 0.3);
-            position: relative;
+            margin-bottom: 12px;
         }
 
         .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple), var(--neon-pink));
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
             width: 0%;
             transition: width 0.3s;
-            box-shadow: 0 0 20px var(--neon-cyan);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .progress-fill::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            animation: progressShine 1.5s infinite;
-        }
-
-        @keyframes progressShine {
-            to { left: 200%; }
+            border-radius: 10px;
         }
 
         .progress-text {
-            text-align: center;
-            margin-top: 15px;
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--neon-cyan);
-        }
-
-        /* Stats */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin: 30px 0;
-        }
-
-        .stat-box {
-            background: rgba(0, 0, 0, 0.5);
-            padding: 25px;
-            border-radius: 15px;
-            border: 2px solid;
-            text-align: center;
-            transition: all 0.3s;
-        }
-
-        .stat-box:hover {
-            transform: translateY(-5px);
-        }
-
-        .stat-value {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 42px;
-            font-weight: 900;
-            margin-bottom: 10px;
-            text-shadow: 0 0 20px currentColor;
-        }
-
-        .stat-label {
             font-size: 14px;
-            opacity: 0.8;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            color: var(--text-secondary);
+            text-align: center;
         }
 
-        /* Notification */
-        .notification {
-            position: fixed;
-            top: 30px;
-            right: 30px;
-            padding: 20px 30px;
-            background: linear-gradient(135deg, rgba(20, 20, 31, 0.98), rgba(26, 26, 46, 0.98));
-            border: 2px solid;
-            border-radius: 15px;
+        /* Results */
+        .result-container {
+            margin-top: 30px;
+            padding: 32px;
+            background: var(--dark-elevated);
+            border-radius: 16px;
+            border: 1px solid var(--border);
             display: none;
-            align-items: center;
-            gap: 15px;
-            z-index: 1000;
-            animation: notifSlide 0.4s ease-out;
-            backdrop-filter: blur(20px);
-            min-width: 300px;
         }
 
-        @keyframes notifSlide {
-            from { 
-                transform: translateX(400px);
-                opacity: 0;
-            }
-            to { 
-                transform: translateX(0);
-                opacity: 1;
-            }
+        .result-container.show {
+            display: block;
+            animation: slideUp 0.4s ease-out;
         }
 
-        .notification.show {
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .result-header {
             display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 28px;
+            padding-bottom: 28px;
+            border-bottom: 1px solid var(--border);
         }
 
-        .notification.success {
-            border-color: var(--neon-green);
-            box-shadow: 0 0 40px rgba(57, 255, 20, 0.5);
-            color: var(--neon-green);
+        .result-icon {
+            font-size: 56px;
+            flex-shrink: 0;
         }
 
-        .notification.error {
-            border-color: var(--neon-pink);
-            box-shadow: 0 0 40px rgba(255, 0, 255, 0.5);
-            color: var(--neon-pink);
+        .result-status {
+            flex: 1;
         }
 
-        .notification.info {
-            border-color: var(--neon-cyan);
-            box-shadow: 0 0 40px rgba(0, 255, 249, 0.5);
-            color: var(--neon-cyan);
-        }
-
-        .notif-icon {
-            font-size: 32px;
-            filter: drop-shadow(0 0 10px currentColor);
-        }
-
-        .notif-text {
+        .result-title {
+            font-size: 24px;
             font-weight: 700;
-            font-size: 16px;
+            margin-bottom: 8px;
+            font-family: 'Space Grotesk', sans-serif;
         }
 
-        .detail-grid {
+        .result-description {
+            font-size: 15px;
+            color: var(--text-secondary);
+        }
+
+        .result-safe {
+            border-left: 4px solid var(--success);
+        }
+
+        .result-safe .result-icon {
+            color: var(--success);
+        }
+
+        .result-safe .result-title {
+            color: var(--success);
+        }
+
+        .result-threat {
+            border-left: 4px solid var(--danger);
+        }
+
+        .result-threat .result-icon {
+            color: var(--danger);
+        }
+
+        .result-threat .result-title {
+            color: var(--danger);
+        }
+
+        .result-details {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
         }
 
         .detail-item {
-            background: rgba(0, 0, 0, 0.3);
-            padding: 15px;
-            border-radius: 10px;
-            border: 1px solid rgba(0, 255, 249, 0.2);
+            background: var(--dark-card);
+            padding: 16px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
         }
 
         .detail-label {
             font-size: 12px;
-            opacity: 0.7;
+            color: var(--text-secondary);
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 5px;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
         }
 
         .detail-value {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 700;
-            font-family: 'Orbitron', sans-serif;
+            font-family: 'Space Grotesk', sans-serif;
         }
 
+        /* Threat List */
+        .threat-section {
+            margin-top: 24px;
+        }
+
+        .threat-section-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .threat-item {
+            background: var(--dark-card);
+            border-left: 3px solid var(--danger);
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            display: flex;
+            gap: 12px;
+            align-items: start;
+        }
+
+        .threat-badge {
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            flex-shrink: 0;
+        }
+
+        .threat-badge.high {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--danger);
+        }
+
+        .threat-badge.medium {
+            background: rgba(245, 158, 11, 0.2);
+            color: var(--warning);
+        }
+
+        .threat-badge.low {
+            background: rgba(0, 217, 255, 0.2);
+            color: var(--primary);
+        }
+
+        .threat-content {
+            flex: 1;
+        }
+
+        .threat-text {
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* Alert Box */
+        .alert {
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: start;
+            gap: 12px;
+            border: 1px solid;
+        }
+
+        .alert-icon {
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .alert-content {
+            flex: 1;
+        }
+
+        .alert-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+            font-size: 14px;
+        }
+
+        .alert-text {
+            font-size: 13px;
+            opacity: 0.9;
+        }
+
+        .alert-info {
+            background: rgba(0, 217, 255, 0.1);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .alert-success {
+            background: rgba(16, 185, 129, 0.1);
+            border-color: var(--success);
+            color: var(--success);
+        }
+
+        .alert-warning {
+            background: rgba(245, 158, 11, 0.1);
+            border-color: var(--warning);
+            color: var(--warning);
+        }
+
+        .alert-danger {
+            background: rgba(239, 68, 68, 0.1);
+            border-color: var(--danger);
+            color: var(--danger);
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            background: var(--dark-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px 20px;
+            display: none;
+            align-items: center;
+            gap: 12px;
+            z-index: 1000;
+            min-width: 300px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(400px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .toast.show {
+            display: flex;
+        }
+
+        .toast-icon {
+            font-size: 24px;
+        }
+
+        .toast-message {
+            flex: 1;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top-color: currentColor;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Security Tips */
+        .tips-section {
+            margin-top: 40px;
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .tip-card {
+            background: var(--dark-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .tip-icon {
+            font-size: 32px;
+            margin-bottom: 16px;
+        }
+
+        .tip-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .tip-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 60px;
+            padding: 32px 0;
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .footer-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .footer-text {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
             .header {
-                flex-direction: column;
                 padding: 20px;
             }
 
             .nav-tabs {
                 width: 100%;
                 overflow-x: auto;
-                flex-wrap: nowrap;
             }
 
-            .nav-tab {
-                padding: 12px 20px;
-                font-size: 14px;
-                white-space: nowrap;
+            .scan-card {
+                padding: 24px 20px;
             }
 
-            .scan-box {
-                padding: 30px 20px;
+            .result-header {
+                flex-direction: column;
+                text-align: center;
             }
 
-            .dashboard-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .notification {
-                right: 15px;
-                top: 15px;
+            .toast {
+                right: 16px;
+                left: 16px;
                 min-width: auto;
-                max-width: calc(100% - 30px);
+            }
+
+            .logo h1 {
+                font-size: 18px;
+            }
+
+            .scan-title {
+                font-size: 24px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="cyber-bg"></div>
-    <div class="scanner-line"></div>
-
     <div class="container">
+        <!-- Header -->
         <header class="header">
             <div class="logo">
                 <div class="logo-icon">🛡️</div>
-                <div>
-                    <h1>CYBERGUARD PRO</h1>
+                <div class="logo-text">
+                    <h1>CyberGuard Pro</h1>
                     <div class="logo-subtitle">Advanced Security Suite</div>
                 </div>
             </div>
             <nav class="nav-tabs">
-                <button class="nav-tab active" data-section="dashboard">⚡ Dashboard</button>
+                <button class="nav-tab active" data-section="dashboard">🏠 Dashboard</button>
                 <button class="nav-tab" data-section="url-scanner">🔗 URL Scan</button>
                 <button class="nav-tab" data-section="phone-scanner">📱 Phone Scan</button>
                 <button class="nav-tab" data-section="message-analyzer">💬 Message Check</button>
@@ -876,142 +798,260 @@
             </nav>
         </header>
 
-        <!-- Dashboard -->
+        <!-- Dashboard Section -->
         <section id="dashboard" class="section active">
             <div class="stats-grid">
-                <div class="stat-box cyan" style="border-color: var(--neon-cyan); color: var(--neon-cyan);">
-                    <div class="stat-value" id="totalScans">0</div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon">⚡</div>
+                    </div>
+                    <div class="stat-value" id="totalScans" style="color: var(--primary)">0</div>
                     <div class="stat-label">Total Scans</div>
                 </div>
-                <div class="stat-box green" style="border-color: var(--neon-green); color: var(--neon-green);">
-                    <div class="stat-value" id="threatsBlocked">0</div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon">🛡️</div>
+                    </div>
+                    <div class="stat-value" id="threatsBlocked" style="color: var(--success)">0</div>
                     <div class="stat-label">Threats Blocked</div>
                 </div>
-                <div class="stat-box purple" style="border-color: var(--neon-purple); color: var(--neon-purple);">
-                    <div class="stat-value" id="filesScanned">0</div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon">📄</div>
+                    </div>
+                    <div class="stat-value" id="filesScanned" style="color: var(--secondary)">0</div>
                     <div class="stat-label">Files Scanned</div>
                 </div>
-                <div class="stat-box pink" style="border-color: var(--neon-pink); color: var(--neon-pink);">
-                    <div class="stat-value">99.9%</div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon">✓</div>
+                    </div>
+                    <div class="stat-value" style="color: var(--success)">99.9%</div>
                     <div class="stat-label">Detection Rate</div>
                 </div>
             </div>
 
-            <div class="dashboard-grid">
-                <div class="cyber-card cyan" data-navigate="url-scanner">
-                    <div class="card-icon">🔗</div>
-                    <div class="card-title" style="color: var(--neon-cyan);">URL Scanner</div>
-                    <div class="card-description">Analyze suspicious URLs and detect phishing attempts, malware distribution sites, and fraudulent web pages in real-time.</div>
-                    <button class="cyber-button" style="color: var(--neon-cyan);">Launch Scanner</button>
+            <div class="feature-grid">
+                <div class="feature-card" data-navigate="url-scanner">
+                    <div class="feature-icon">🔗</div>
+                    <div class="feature-title">URL Scanner</div>
+                    <div class="feature-description">Analyze suspicious URLs and detect phishing attempts, malware distribution sites, and fraudulent web pages in real-time.</div>
+                    <button class="btn btn-primary">Launch Scanner →</button>
                 </div>
 
-                <div class="cyber-card purple" data-navigate="phone-scanner">
-                    <div class="card-icon">📱</div>
-                    <div class="card-title" style="color: var(--neon-purple);">Phone Scanner</div>
-                    <div class="card-description">Comprehensive device scan to detect malware, suspicious apps, vulnerabilities, and potential security threats on your phone.</div>
-                    <button class="cyber-button" style="color: var(--neon-purple);">Start Scan</button>
+                <div class="feature-card" data-navigate="phone-scanner">
+                    <div class="feature-icon">📱</div>
+                    <div class="feature-title">Phone Scanner</div>
+                    <div class="feature-description">Comprehensive device scan to detect malware, suspicious apps, vulnerabilities, and potential security threats.</div>
+                    <button class="btn btn-primary">Start Scan →</button>
                 </div>
 
-                <div class="cyber-card pink" data-navigate="message-analyzer">
-                    <div class="card-icon">💬</div>
-                    <div class="card-title" style="color: var(--neon-pink);">Message Analyzer</div>
-                    <div class="card-description">Detect fake messages, scam texts, phishing attempts, and social engineering attacks using AI-powered analysis.</div>
-                    <button class="cyber-button" style="color: var(--neon-pink);">Analyze Message</button>
+                <div class="feature-card" data-navigate="message-analyzer">
+                    <div class="feature-icon">💬</div>
+                    <div class="feature-title">Message Analyzer</div>
+                    <div class="feature-description">Detect fake messages, scam texts, phishing attempts using AI-powered analysis to protect you from fraud.</div>
+                    <button class="btn btn-primary">Analyze Message →</button>
                 </div>
 
-                <div class="cyber-card green" data-navigate="file-scanner">
-                    <div class="card-icon">📁</div>
-                    <div class="card-title" style="color: var(--neon-green);">File Scanner</div>
-                    <div class="card-description">Deep scan files for viruses, trojans, ransomware, spyware, and other malicious code before opening or executing.</div>
-                    <button class="cyber-button" style="color: var(--neon-green);">Scan Files</button>
+                <div class="feature-card" data-navigate="file-scanner">
+                    <div class="feature-icon">📁</div>
+                    <div class="feature-title">File Scanner</div>
+                    <div class="feature-description">Deep scan files for viruses, trojans, ransomware, and other malicious code before opening or executing.</div>
+                    <button class="btn btn-primary">Scan Files →</button>
+                </div>
+            </div>
+
+            <!-- Security Tips -->
+            <div class="tips-section">
+                <h2 style="font-size: 24px; font-weight: 700; margin-bottom: 24px; font-family: 'Space Grotesk', sans-serif;">🛡️ Security Best Practices</h2>
+                <div class="tips-grid">
+                    <div class="tip-card">
+                        <div class="tip-icon">🔐</div>
+                        <div class="tip-title">Strong Passwords</div>
+                        <div class="tip-text">Use unique passwords with at least 12 characters including numbers, symbols, and mixed case.</div>
+                    </div>
+                    <div class="tip-card">
+                        <div class="tip-icon">🔄</div>
+                        <div class="tip-title">Regular Updates</div>
+                        <div class="tip-text">Keep your system and apps updated to protect against the latest security threats.</div>
+                    </div>
+                    <div class="tip-card">
+                        <div class="tip-icon">📧</div>
+                        <div class="tip-title">Email Vigilance</div>
+                        <div class="tip-text">Never click suspicious links or download attachments from unknown senders.</div>
+                    </div>
+                    <div class="tip-card">
+                        <div class="tip-icon">🔒</div>
+                        <div class="tip-title">Enable 2FA</div>
+                        <div class="tip-text">Activate two-factor authentication on all accounts for extra security.</div>
+                    </div>
+                    <div class="tip-card">
+                        <div class="tip-icon">💾</div>
+                        <div class="tip-title">Regular Backups</div>
+                        <div class="tip-text">Backup important data to multiple locations including offline storage.</div>
+                    </div>
+                    <div class="tip-card">
+                        <div class="tip-icon">🌐</div>
+                        <div class="tip-title">Secure Networks</div>
+                        <div class="tip-text">Avoid public WiFi for sensitive transactions. Use VPN when needed.</div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- URL Scanner -->
+        <!-- URL Scanner Section -->
         <section id="url-scanner" class="section">
             <div class="scanner-container">
-                <div class="scan-box">
-                    <h2 class="scan-title">🔗 URL THREAT SCANNER</h2>
-                    <div class="input-group">
-                        <input type="text" id="urlInput" class="cyber-input" placeholder="Enter URL to scan (e.g., https://example.com)">
+                <div class="scan-card">
+                    <div class="scan-header">
+                        <h2 class="scan-title">🔗 URL Threat Scanner</h2>
+                        <p class="scan-subtitle">Check if a website is safe before visiting</p>
                     </div>
-                    <button class="scan-button" id="urlScanBtn">
-                        <span id="urlScanText">🔍 SCAN URL NOW</span>
+
+                    <div class="alert alert-info">
+                        <div class="alert-icon">ℹ️</div>
+                        <div class="alert-content">
+                            <div class="alert-title">How it works</div>
+                            <div class="alert-text">Our scanner analyzes URLs for suspicious patterns, phishing indicators, and known malicious domains to keep you safe.</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Enter URL to scan</label>
+                        <input type="text" id="urlInput" class="form-input" placeholder="https://example.com">
+                        <div class="form-help">Enter the complete URL including https://</div>
+                    </div>
+
+                    <button class="btn btn-primary" id="urlScanBtn" style="width: 100%;">
+                        <span id="urlScanText">🔍 Scan URL Now</span>
                     </button>
+
                     <div id="urlResult" class="result-container"></div>
                 </div>
             </div>
         </section>
 
-        <!-- Phone Scanner -->
+        <!-- Phone Scanner Section -->
         <section id="phone-scanner" class="section">
             <div class="scanner-container">
-                <div class="scan-box" style="border-color: var(--neon-purple); box-shadow: 0 0 50px rgba(176, 38, 255, 0.3);">
-                    <h2 class="scan-title" style="color: var(--neon-purple); text-shadow: 0 0 20px var(--neon-purple);">📱 DEVICE SECURITY SCAN</h2>
-                    <div class="file-drop-zone" id="phoneDrop" style="border-color: rgba(176, 38, 255, 0.4);">
-                        <div class="drop-icon">📱</div>
-                        <h3 style="font-size: 24px; margin-bottom: 15px; font-family: 'Orbitron', sans-serif; color: var(--neon-purple);">SIMULATE PHONE SCAN</h3>
-                        <p style="opacity: 0.7; margin-bottom: 20px;">Click to start a comprehensive security scan</p>
-                        <button class="cyber-button" style="color: var(--neon-purple);" id="phoneScanBtn">START DEEP SCAN</button>
+                <div class="scan-card">
+                    <div class="scan-header">
+                        <h2 class="scan-title">📱 Device Security Scan</h2>
+                        <p class="scan-subtitle">Comprehensive security analysis for your device</p>
                     </div>
-                    <div id="phoneProgress" class="scan-progress">
+
+                    <div class="alert alert-info">
+                        <div class="alert-icon">ℹ️</div>
+                        <div class="alert-content">
+                            <div class="alert-title">What we check</div>
+                            <div class="alert-text">System files, installed applications, permissions, malware signatures, vulnerabilities, and network connections.</div>
+                        </div>
+                    </div>
+
+                    <div class="drop-zone" id="phoneDrop">
+                        <div class="drop-icon">📱</div>
+                        <div class="drop-title">Simulate Phone Scan</div>
+                        <div class="drop-text">Click the button below to start a comprehensive security scan</div>
+                        <button class="btn btn-primary" id="phoneScanBtn">Start Deep Scan</button>
+                    </div>
+
+                    <div id="phoneProgress" class="progress-container">
                         <div class="progress-bar">
                             <div class="progress-fill" id="phoneProgressBar"></div>
                         </div>
                         <div class="progress-text" id="phoneProgressText">Initializing scan...</div>
                     </div>
+
                     <div id="phoneResult" class="result-container"></div>
                 </div>
             </div>
         </section>
 
-        <!-- Message Analyzer -->
+        <!-- Message Analyzer Section -->
         <section id="message-analyzer" class="section">
             <div class="scanner-container">
-                <div class="scan-box" style="border-color: var(--neon-pink); box-shadow: 0 0 50px rgba(255, 0, 255, 0.3);">
-                    <h2 class="scan-title" style="color: var(--neon-pink); text-shadow: 0 0 20px var(--neon-pink);">💬 MESSAGE THREAT DETECTOR</h2>
-                    <div class="input-group">
-                        <textarea id="messageInput" class="cyber-input cyber-textarea" placeholder="Paste the suspicious message here...&#10;&#10;Example: 'URGENT! Your account has been locked. Click here immediately to verify: http://suspicious-link.com'"></textarea>
+                <div class="scan-card">
+                    <div class="scan-header">
+                        <h2 class="scan-title">💬 Message Threat Detector</h2>
+                        <p class="scan-subtitle">Identify scams, phishing, and fraudulent messages</p>
                     </div>
-                    <button class="scan-button" id="messageScanBtn" style="background: linear-gradient(135deg, var(--neon-pink), var(--neon-purple));">
-                        <span id="messageScanText">🔍 ANALYZE MESSAGE</span>
+
+                    <div class="alert alert-warning">
+                        <div class="alert-icon">⚠️</div>
+                        <div class="alert-content">
+                            <div class="alert-title">Common scam tactics</div>
+                            <div class="alert-text">Watch for urgent language, prize claims, account verification requests, and suspicious links.</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Paste suspicious message</label>
+                        <textarea id="messageInput" class="form-input form-textarea" placeholder="Example: 'URGENT! Your account has been locked. Click here immediately to verify: http://suspicious-link.com'"></textarea>
+                        <div class="form-help">Paste the complete message text for analysis</div>
+                    </div>
+
+                    <button class="btn btn-primary" id="messageScanBtn" style="width: 100%;">
+                        <span id="messageScanText">🔍 Analyze Message</span>
                     </button>
+
                     <div id="messageResult" class="result-container"></div>
                 </div>
             </div>
         </section>
 
-        <!-- File Scanner -->
+        <!-- File Scanner Section -->
         <section id="file-scanner" class="section">
             <div class="scanner-container">
-                <div class="scan-box" style="border-color: var(--neon-green); box-shadow: 0 0 50px rgba(57, 255, 20, 0.3);">
-                    <h2 class="scan-title" style="color: var(--neon-green); text-shadow: 0 0 20px var(--neon-green);">📁 FILE MALWARE SCANNER</h2>
-                    <div class="file-drop-zone" id="fileDrop" style="border-color: rgba(57, 255, 20, 0.4);">
-                        <div class="drop-icon">📁</div>
-                        <h3 style="font-size: 24px; margin-bottom: 15px; font-family: 'Orbitron', sans-serif; color: var(--neon-green);">DROP FILES HERE</h3>
-                        <p style="opacity: 0.7; margin-bottom: 20px;">Or click to browse files</p>
-                        <input type="file" id="fileInput" style="display: none;" multiple>
-                        <button class="cyber-button" style="color: var(--neon-green);" id="fileBrowseBtn">BROWSE FILES</button>
+                <div class="scan-card">
+                    <div class="scan-header">
+                        <h2 class="scan-title">📁 File Malware Scanner</h2>
+                        <p class="scan-subtitle">Scan files for viruses and malicious code</p>
                     </div>
-                    <div id="fileProgress" class="scan-progress">
+
+                    <div class="alert alert-info">
+                        <div class="alert-icon">ℹ️</div>
+                        <div class="alert-content">
+                            <div class="alert-title">Supported files</div>
+                            <div class="alert-text">Scan any file type including executables, documents, images, and archives.</div>
+                        </div>
+                    </div>
+
+                    <div class="drop-zone" id="fileDrop">
+                        <div class="drop-icon">📁</div>
+                        <div class="drop-title">Drop files here</div>
+                        <div class="drop-text">Or click the button below to browse files</div>
+                        <input type="file" id="fileInput" style="display: none;" multiple>
+                        <button class="btn btn-primary" id="fileBrowseBtn">Browse Files</button>
+                    </div>
+
+                    <div id="fileProgress" class="progress-container">
                         <div class="progress-bar">
                             <div class="progress-fill" id="fileProgressBar"></div>
                         </div>
                         <div class="progress-text" id="fileProgressText">Scanning files...</div>
                     </div>
+
                     <div id="fileResult" class="result-container"></div>
                 </div>
             </div>
         </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-title">CyberGuard Pro v2.0</div>
+            <div class="footer-text">Advanced AI-Powered Security Suite | Protecting Users Worldwide</div>
+            <div class="footer-text" style="margin-top: 8px; opacity: 0.6;">© 2025 CyberGuard Pro. All rights reserved.</div>
+        </footer>
     </div>
 
-    <div class="notification" id="notification">
-        <div class="notif-icon" id="notifIcon"></div>
-        <div class="notif-text" id="notifText"></div>
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <div class="toast-icon" id="toastIcon"></div>
+        <div class="toast-message" id="toastMessage"></div>
     </div>
 
     <script>
+        // State Management
         const state = {
             totalScans: 0,
             threatsBlocked: 0,
@@ -1025,6 +1065,7 @@
             setupPhoneScanner();
             setupMessageAnalyzer();
             setupFileScanner();
+            showToast('🛡️', 'CyberGuard Pro ready!', 'success');
         });
 
         // Navigation
@@ -1036,12 +1077,10 @@
                 });
             });
 
-            document.querySelectorAll('.cyber-card').forEach(card => {
-                card.addEventListener('click', (e) => {
-                    if (e.target.closest('.cyber-button')) {
-                        const section = card.getAttribute('data-navigate');
-                        showSection(section);
-                    }
+            document.querySelectorAll('.feature-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const section = card.getAttribute('data-navigate');
+                    if (section) showSection(section);
                 });
             });
         }
@@ -1051,7 +1090,8 @@
             document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
             
             document.getElementById(sectionId).classList.add('active');
-            document.querySelector(`[data-section="${sectionId}"]`).classList.add('active');
+            const tab = document.querySelector(`[data-section="${sectionId}"]`);
+            if (tab) tab.classList.add('active');
         }
 
         // URL Scanner
@@ -1059,7 +1099,7 @@
             const btn = document.getElementById('urlScanBtn');
             const input = document.getElementById('urlInput');
             
-            btn.addEventListener('click', () => scanURL());
+            btn.addEventListener('click', scanURL);
             input.addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') scanURL();
             });
@@ -1070,31 +1110,31 @@
             const url = input.value.trim();
             
             if (!url) {
-                showNotification('⚠️', 'Please enter a URL to scan', 'error');
+                showToast('⚠️', 'Please enter a URL to scan', 'warning');
                 return;
             }
 
             const btn = document.getElementById('urlScanBtn');
             const text = document.getElementById('urlScanText');
             btn.disabled = true;
-            text.innerHTML = '<div class="loading-spinner"></div> SCANNING...';
+            text.innerHTML = '<span class="spinner"></span> Scanning...';
 
-            await new Promise(resolve => setTimeout(resolve, 2500));
+            await new Promise(resolve => setTimeout(resolve, 2000));
 
             const analysis = analyzeURL(url);
             displayURLResult(analysis);
 
             btn.disabled = false;
-            text.innerHTML = '🔍 SCAN URL NOW';
+            text.innerHTML = '🔍 Scan URL Now';
 
             state.totalScans++;
             if (!analysis.isSafe) state.threatsBlocked++;
             updateStats();
 
-            showNotification(
+            showToast(
                 analysis.isSafe ? '✅' : '⚠️',
                 analysis.isSafe ? 'URL is safe!' : 'Threats detected!',
-                analysis.isSafe ? 'success' : 'error'
+                analysis.isSafe ? 'success' : 'danger'
             );
         }
 
@@ -1116,7 +1156,7 @@
                 for (const tld of suspiciousTLDs) {
                     if (urlObj.hostname.endsWith(tld)) {
                         riskScore += 30;
-                        threats.push({ severity: 'high', text: `Suspicious domain extension: ${tld} - often used for temporary malicious sites` });
+                        threats.push({ severity: 'high', text: `Suspicious domain extension: ${tld}` });
                         break;
                     }
                 }
@@ -1134,12 +1174,12 @@
 
                 if (url.length > 80) {
                     riskScore += 12;
-                    threats.push({ severity: 'low', text: 'Unusually long URL - potential obfuscation attempt' });
+                    threats.push({ severity: 'low', text: 'Unusually long URL - potential obfuscation' });
                 }
 
                 if (url.includes('@')) {
                     riskScore += 25;
-                    threats.push({ severity: 'high', text: 'Contains @ symbol - URL spoofing technique detected' });
+                    threats.push({ severity: 'high', text: 'Contains @ symbol - URL spoofing detected' });
                 }
 
                 if (urlObj.protocol === 'http:') {
@@ -1153,7 +1193,7 @@
                     isSafe: riskScore < 40,
                     threats,
                     domain: urlObj.hostname,
-                    protocol: urlObj.protocol.replace(':', '')
+                    protocol: urlObj.protocol.replace(':', '').toUpperCase()
                 };
             } catch (e) {
                 return {
@@ -1169,56 +1209,56 @@
 
         function displayURLResult(analysis) {
             const resultDiv = document.getElementById('urlResult');
-            const className = analysis.isSafe ? 'safe' : 'threat';
-            const color = analysis.isSafe ? 'var(--neon-green)' : 'var(--neon-pink)';
+            const className = analysis.isSafe ? 'result-safe' : 'result-threat';
 
             let threatsHTML = '';
             if (analysis.threats.length > 0) {
                 threatsHTML = `
-                    <div class="threat-list">
-                        <h3 style="color: ${color}; font-family: 'Orbitron', sans-serif; margin-bottom: 20px;">⚠️ SECURITY WARNINGS</h3>
+                    <div class="threat-section">
+                        <div class="threat-section-title">⚠️ Security Warnings</div>
                         ${analysis.threats.map(threat => `
                             <div class="threat-item">
-                                <span class="threat-severity severity-${threat.severity}">${threat.severity}</span>
-                                <span style="flex: 1;">${threat.text}</span>
+                                <span class="threat-badge ${threat.severity}">${threat.severity}</span>
+                                <div class="threat-content">
+                                    <div class="threat-text">${threat.text}</div>
+                                </div>
                             </div>
                         `).join('')}
                     </div>
                 `;
             }
 
-            resultDiv.className = `result-container ${className}`;
+            resultDiv.className = `result-container ${className} show`;
             resultDiv.innerHTML = `
                 <div class="result-header">
-                    <div class="result-icon" style="color: ${color};">${analysis.isSafe ? '✅' : '⚠️'}</div>
-                    <h3 class="result-title" style="color: ${color};">
-                        ${analysis.isSafe ? 'URL IS SAFE' : 'THREAT DETECTED'}
-                    </h3>
-                    <p class="result-subtitle">
-                        ${analysis.isSafe ? 'No major security threats detected. However, always exercise caution.' : 'This URL shows suspicious characteristics. Do NOT visit this website!'}
-                    </p>
+                    <div class="result-icon">${analysis.isSafe ? '✅' : '⚠️'}</div>
+                    <div class="result-status">
+                        <div class="result-title">${analysis.isSafe ? 'URL is Safe' : 'Threat Detected'}</div>
+                        <div class="result-description">
+                            ${analysis.isSafe ? 'No major security threats detected. However, always exercise caution.' : 'This URL shows suspicious characteristics. Do NOT visit this website!'}
+                        </div>
+                    </div>
                 </div>
-                <div class="detail-grid">
+                <div class="result-details">
                     <div class="detail-item">
                         <div class="detail-label">Domain</div>
                         <div class="detail-value">${analysis.domain}</div>
                     </div>
                     <div class="detail-item">
                         <div class="detail-label">Protocol</div>
-                        <div class="detail-value">${analysis.protocol.toUpperCase()}</div>
+                        <div class="detail-value">${analysis.protocol}</div>
                     </div>
                     <div class="detail-item">
                         <div class="detail-label">Risk Score</div>
-                        <div class="detail-value" style="color: ${color};">${analysis.riskScore}/100</div>
+                        <div class="detail-value">${analysis.riskScore}/100</div>
                     </div>
                     <div class="detail-item">
                         <div class="detail-label">Status</div>
-                        <div class="detail-value">${analysis.isSafe ? '✅ SAFE' : '⚠️ THREAT'}</div>
+                        <div class="detail-value">${analysis.isSafe ? '✅ Safe' : '⚠️ Threat'}</div>
                     </div>
                 </div>
                 ${threatsHTML}
             `;
-            resultDiv.style.display = 'block';
         }
 
         // Phone Scanner
@@ -1233,7 +1273,7 @@
             const resultDiv = document.getElementById('phoneResult');
 
             progressDiv.style.display = 'block';
-            resultDiv.style.display = 'none';
+            resultDiv.classList.remove('show');
 
             const scanSteps = [
                 { progress: 15, text: 'Scanning system files...' },
@@ -1246,7 +1286,7 @@
             ];
 
             for (const step of scanSteps) {
-                await new Promise(resolve => setTimeout(resolve, 800));
+                await new Promise(resolve => setTimeout(resolve, 700));
                 progressBar.style.width = step.progress + '%';
                 progressText.textContent = step.text;
             }
@@ -1268,29 +1308,28 @@
             if (!isSafe) state.threatsBlocked += threats.length;
             updateStats();
 
-            showNotification(
+            showToast(
                 isSafe ? '✅' : '⚠️',
-                isSafe ? 'Device is secure!' : 'Threats found on device!',
-                isSafe ? 'success' : 'error'
+                isSafe ? 'Device is secure!' : 'Threats found!',
+                isSafe ? 'success' : 'danger'
             );
         }
 
         function displayPhoneResult(isSafe, threats) {
             const resultDiv = document.getElementById('phoneResult');
-            const className = isSafe ? 'safe' : 'threat';
-            const color = isSafe ? 'var(--neon-green)' : 'var(--neon-pink)';
+            const className = isSafe ? 'result-safe' : 'result-threat';
 
             let threatsHTML = '';
             if (threats.length > 0) {
                 threatsHTML = `
-                    <div class="threat-list">
-                        <h3 style="color: ${color}; font-family: 'Orbitron', sans-serif; margin-bottom: 20px;">⚠️ THREATS DETECTED</h3>
+                    <div class="threat-section">
+                        <div class="threat-section-title">⚠️ Threats Detected</div>
                         ${threats.map(threat => `
                             <div class="threat-item">
-                                <span class="threat-severity severity-${threat.severity}">${threat.severity}</span>
-                                <div style="flex: 1;">
-                                    <div style="font-weight: 700; margin-bottom: 5px;">${threat.app}</div>
-                                    <div style="opacity: 0.8;">${threat.issue}</div>
+                                <span class="threat-badge ${threat.severity}">${threat.severity}</span>
+                                <div class="threat-content">
+                                    <div style="font-weight: 600; margin-bottom: 4px;">${threat.app}</div>
+                                    <div class="threat-text">${threat.issue}</div>
                                 </div>
                             </div>
                         `).join('')}
@@ -1298,18 +1337,18 @@
                 `;
             }
 
-            resultDiv.className = `result-container ${className}`;
+            resultDiv.className = `result-container ${className} show`;
             resultDiv.innerHTML = `
                 <div class="result-header">
-                    <div class="result-icon" style="color: ${color};">${isSafe ? '✅' : '⚠️'}</div>
-                    <h3 class="result-title" style="color: ${color};">
-                        ${isSafe ? 'DEVICE SECURE' : 'THREATS FOUND'}
-                    </h3>
-                    <p class="result-subtitle">
-                        ${isSafe ? 'No threats detected. Your device is clean and secure.' : 'Security threats detected on your device. Take immediate action!'}
-                    </p>
+                    <div class="result-icon">${isSafe ? '✅' : '⚠️'}</div>
+                    <div class="result-status">
+                        <div class="result-title">${isSafe ? 'Device Secure' : 'Threats Found'}</div>
+                        <div class="result-description">
+                            ${isSafe ? 'No threats detected. Your device is clean and secure.' : 'Security threats detected. Take immediate action!'}
+                        </div>
+                    </div>
                 </div>
-                <div class="detail-grid">
+                <div class="result-details">
                     <div class="detail-item">
                         <div class="detail-label">Files Scanned</div>
                         <div class="detail-value">147</div>
@@ -1320,16 +1359,15 @@
                     </div>
                     <div class="detail-item">
                         <div class="detail-label">Threats Found</div>
-                        <div class="detail-value" style="color: ${color};">${threats.length}</div>
+                        <div class="detail-value">${threats.length}</div>
                     </div>
                     <div class="detail-item">
                         <div class="detail-label">Status</div>
-                        <div class="detail-value">${isSafe ? '✅ CLEAN' : '⚠️ AT RISK'}</div>
+                        <div class="detail-value">${isSafe ? '✅ Clean' : '⚠️ At Risk'}</div>
                     </div>
                 </div>
                 ${threatsHTML}
             `;
-            resultDiv.style.display = 'block';
         }
 
         // Message Analyzer
@@ -1337,10 +1375,7 @@
             const btn = document.getElementById('messageScanBtn');
             const input = document.getElementById('messageInput');
             
-            btn.addEventListener('click', () => analyzeMessage());
-            input.addEventListener('keypress', (e) => {
-                if (e.ctrlKey && e.key === 'Enter') analyzeMessage();
-            });
+            btn.addEventListener('click', analyzeMessage);
         }
 
         async function analyzeMessage() {
@@ -1348,31 +1383,31 @@
             const message = input.value.trim();
             
             if (!message) {
-                showNotification('⚠️', 'Please enter a message to analyze', 'error');
+                showToast('⚠️', 'Please enter a message to analyze', 'warning');
                 return;
             }
 
             const btn = document.getElementById('messageScanBtn');
             const text = document.getElementById('messageScanText');
             btn.disabled = true;
-            text.innerHTML = '<div class="loading-spinner"></div> ANALYZING...';
+            text.innerHTML = '<span class="spinner"></span> Analyzing...';
 
-            await new Promise(resolve => setTimeout(resolve, 2000));
+            await new Promise(resolve => setTimeout(resolve, 1800));
 
             const analysis = detectFakeMessage(message);
             displayMessageResult(analysis);
 
             btn.disabled = false;
-            text.innerHTML = '🔍 ANALYZE MESSAGE';
+            text.innerHTML = '🔍 Analyze Message';
 
             state.totalScans++;
             if (!analysis.isSafe) state.threatsBlocked++;
             updateStats();
 
-            showNotification(
+            showToast(
                 analysis.isSafe ? '✅' : '⚠️',
-                analysis.isSafe ? 'Message appears legitimate' : 'Suspicious message detected!',
-                analysis.isSafe ? 'success' : 'error'
+                analysis.isSafe ? 'Message appears legitimate' : 'Suspicious message!',
+                analysis.isSafe ? 'success' : 'danger'
             );
         }
 
@@ -1381,8 +1416,8 @@
             let riskScore = 0;
             const threats = [];
 
-            const urgentWords = ['urgent', 'immediate', 'act now', 'limited time', 'expires', 'hurry', 'asap', 'quickly'];
-            const scamWords = ['winner', 'congratulations', 'prize', 'lottery', 'million', 'inheritance', 'claim', 'free money'];
+            const urgentWords = ['urgent', 'immediate', 'act now', 'limited time', 'expires', 'hurry', 'asap'];
+            const scamWords = ['winner', 'congratulations', 'prize', 'lottery', 'million', 'inheritance', 'claim'];
             const phishingWords = ['verify', 'confirm', 'suspend', 'locked', 'unusual activity', 'click here', 'update payment'];
             const threatWords = ['lawsuit', 'arrest', 'legal action', 'warrant', 'irs', 'tax', 'fine'];
 
@@ -1398,7 +1433,7 @@
 
             if (phishingWords.some(word => msg.includes(word))) {
                 riskScore += 30;
-                threats.push({ severity: 'high', text: 'Phishing attempt detected - requests account verification' });
+                threats.push({ severity: 'high', text: 'Phishing attempt - requests account verification' });
             }
 
             if (threatWords.some(word => msg.includes(word))) {
@@ -1411,15 +1446,10 @@
                 threats.push({ severity: 'medium', text: 'Contains suspicious links' });
             }
 
-            if (/\d{16}/.test(message) || /\d{3}-\d{2}-\d{4}/.test(message)) {
-                riskScore += 15;
-                threats.push({ severity: 'low', text: 'Contains sensitive data patterns (credit card/SSN)' });
-            }
-
             const upperCount = (message.match(/[A-Z]/g) || []).length;
             if (upperCount > message.length * 0.3) {
                 riskScore += 10;
-                threats.push({ severity: 'low', text: 'Excessive use of capital letters - attention-seeking tactic' });
+                threats.push({ severity: 'low', text: 'Excessive capitals - attention-seeking tactic' });
             }
 
             return {
@@ -1432,39 +1462,40 @@
 
         function displayMessageResult(analysis) {
             const resultDiv = document.getElementById('messageResult');
-            const className = analysis.isSafe ? 'safe' : 'threat';
-            const color = analysis.isSafe ? 'var(--neon-green)' : 'var(--neon-pink)';
+            const className = analysis.isSafe ? 'result-safe' : 'result-threat';
 
             let threatsHTML = '';
             if (analysis.threats.length > 0) {
                 threatsHTML = `
-                    <div class="threat-list">
-                        <h3 style="color: ${color}; font-family: 'Orbitron', sans-serif; margin-bottom: 20px;">⚠️ SCAM INDICATORS</h3>
+                    <div class="threat-section">
+                        <div class="threat-section-title">⚠️ Scam Indicators</div>
                         ${analysis.threats.map(threat => `
                             <div class="threat-item">
-                                <span class="threat-severity severity-${threat.severity}">${threat.severity}</span>
-                                <span style="flex: 1;">${threat.text}</span>
+                                <span class="threat-badge ${threat.severity}">${threat.severity}</span>
+                                <div class="threat-content">
+                                    <div class="threat-text">${threat.text}</div>
+                                </div>
                             </div>
                         `).join('')}
                     </div>
                 `;
             }
 
-            resultDiv.className = `result-container ${className}`;
+            resultDiv.className = `result-container ${className} show`;
             resultDiv.innerHTML = `
                 <div class="result-header">
-                    <div class="result-icon" style="color: ${color};">${analysis.isSafe ? '✅' : '⚠️'}</div>
-                    <h3 class="result-title" style="color: ${color};">
-                        ${analysis.isSafe ? 'MESSAGE APPEARS SAFE' : 'SCAM DETECTED'}
-                    </h3>
-                    <p class="result-subtitle">
-                        ${analysis.isSafe ? 'No major red flags detected, but always verify sender identity.' : 'This message shows multiple scam indicators. DO NOT respond or click any links!'}
-                    </p>
+                    <div class="result-icon">${analysis.isSafe ? '✅' : '⚠️'}</div>
+                    <div class="result-status">
+                        <div class="result-title">${analysis.isSafe ? 'Message Appears Safe' : 'Scam Detected'}</div>
+                        <div class="result-description">
+                            ${analysis.isSafe ? 'No major red flags detected, but always verify sender identity.' : 'This message shows scam indicators. DO NOT respond or click links!'}
+                        </div>
+                    </div>
                 </div>
-                <div class="detail-grid">
+                <div class="result-details">
                     <div class="detail-item">
                         <div class="detail-label">Risk Score</div>
-                        <div class="detail-value" style="color: ${color};">${analysis.riskScore}/100</div>
+                        <div class="detail-value">${analysis.riskScore}/100</div>
                     </div>
                     <div class="detail-item">
                         <div class="detail-label">Indicators</div>
@@ -1472,16 +1503,15 @@
                     </div>
                     <div class="detail-item">
                         <div class="detail-label">Type</div>
-                        <div class="detail-value">${analysis.riskScore > 60 ? 'SCAM' : analysis.riskScore > 30 ? 'SUSPICIOUS' : 'NORMAL'}</div>
+                        <div class="detail-value">${analysis.riskScore > 60 ? 'Scam' : analysis.riskScore > 30 ? 'Suspicious' : 'Normal'}</div>
                     </div>
                     <div class="detail-item">
                         <div class="detail-label">Status</div>
-                        <div class="detail-value">${analysis.isSafe ? '✅ SAFE' : '⚠️ DANGER'}</div>
+                        <div class="detail-value">${analysis.isSafe ? '✅ Safe' : '⚠️ Danger'}</div>
                     </div>
                 </div>
                 ${threatsHTML}
             `;
-            resultDiv.style.display = 'block';
         }
 
         // File Scanner
@@ -1518,7 +1548,7 @@
             const resultDiv = document.getElementById('fileResult');
 
             progressDiv.style.display = 'block';
-            resultDiv.style.display = 'none';
+            resultDiv.classList.remove('show');
 
             const threats = [];
             let totalFiles = files.length;
@@ -1529,7 +1559,7 @@
                 progressBar.style.width = progress + '%';
                 progressText.textContent = `Scanning ${file.name}...`;
 
-                await new Promise(resolve => setTimeout(resolve, 1000));
+                await new Promise(resolve => setTimeout(resolve, 800));
 
                 const ext = file.name.split('.').pop().toLowerCase();
                 const dangerousExts = ['exe', 'bat', 'cmd', 'scr', 'vbs', 'js', 'jar'];
@@ -1557,30 +1587,29 @@
             if (threats.length > 0) state.threatsBlocked += threats.length;
             updateStats();
 
-            showNotification(
+            showToast(
                 threats.length === 0 ? '✅' : '⚠️',
-                threats.length === 0 ? 'All files are clean!' : `${threats.length} threat(s) detected!`,
-                threats.length === 0 ? 'success' : 'error'
+                threats.length === 0 ? 'All files are clean!' : `${threats.length} threat(s) found!`,
+                threats.length === 0 ? 'success' : 'danger'
             );
         }
 
         function displayFileResult(totalFiles, threats) {
             const resultDiv = document.getElementById('fileResult');
             const isSafe = threats.length === 0;
-            const className = isSafe ? 'safe' : 'threat';
-            const color = isSafe ? 'var(--neon-green)' : 'var(--neon-pink)';
+            const className = isSafe ? 'result-safe' : 'result-threat';
 
             let threatsHTML = '';
             if (threats.length > 0) {
                 threatsHTML = `
-                    <div class="threat-list">
-                        <h3 style="color: ${color}; font-family: 'Orbitron', sans-serif; margin-bottom: 20px;">⚠️ INFECTED FILES</h3>
+                    <div class="threat-section">
+                        <div class="threat-section-title">⚠️ Infected Files</div>
                         ${threats.map(threat => `
                             <div class="threat-item">
-                                <span class="threat-severity severity-${threat.severity}">${threat.severity}</span>
-                                <div style="flex: 1;">
-                                    <div style="font-weight: 700; margin-bottom: 5px;">📄 ${threat.file}</div>
-                                    <div style="opacity: 0.8;">${threat.issue}</div>
+                                <span class="threat-badge ${threat.severity}">${threat.severity}</span>
+                                <div class="threat-content">
+                                    <div style="font-weight: 600; margin-bottom: 4px;">📄 ${threat.file}</div>
+                                    <div class="threat-text">${threat.issue}</div>
                                 </div>
                             </div>
                         `).join('')}
@@ -1588,54 +1617,51 @@
                 `;
             }
 
-            resultDiv.className = `result-container ${className}`;
+            resultDiv.className = `result-container ${className} show`;
             resultDiv.innerHTML = `
                 <div class="result-header">
-                    <div class="result-icon" style="color: ${color};">${isSafe ? '✅' : '⚠️'}</div>
-                    <h3 class="result-title" style="color: ${color};">
-                        ${isSafe ? 'ALL FILES CLEAN' : 'MALWARE DETECTED'}
-                    </h3>
-                    <p class="result-subtitle">
-                        ${isSafe ? 'No threats detected in scanned files. Safe to use.' : 'Infected files detected! Do NOT open or execute these files!'}
-                    </p>
+                    <div class="result-icon">${isSafe ? '✅' : '⚠️'}</div>
+                    <div class="result-status">
+                        <div class="result-title">${isSafe ? 'All Files Clean' : 'Malware Detected'}</div>
+                        <div class="result-description">
+                            ${isSafe ? 'No threats detected in scanned files. Safe to use.' : 'Infected files detected! Do NOT open or execute these files!'}
+                        </div>
+                    </div>
                 </div>
-                <div class="detail-grid">
+                <div class="result-details">
                     <div class="detail-item">
                         <div class="detail-label">Files Scanned</div>
                         <div class="detail-value">${totalFiles}</div>
                     </div>
                     <div class="detail-item">
                         <div class="detail-label">Clean Files</div>
-                        <div class="detail-value" style="color: var(--neon-green);">${totalFiles - threats.length}</div>
+                        <div class="detail-value">${totalFiles - threats.length}</div>
                     </div>
                     <div class="detail-item">
                         <div class="detail-label">Threats Found</div>
-                        <div class="detail-value" style="color: ${color};">${threats.length}</div>
+                        <div class="detail-value">${threats.length}</div>
                     </div>
                     <div class="detail-item">
                         <div class="detail-label">Status</div>
-                        <div class="detail-value">${isSafe ? '✅ SAFE' : '⚠️ INFECTED'}</div>
+                        <div class="detail-value">${isSafe ? '✅ Safe' : '⚠️ Infected'}</div>
                     </div>
                 </div>
                 ${threatsHTML}
             `;
-            resultDiv.style.display = 'block';
         }
 
-        // Notification System
-        function showNotification(icon, text, type) {
-            const notif = document.getElementById('notification');
-            const notifIcon = document.getElementById('notifIcon');
-            const notifText = document.getElementById('notifText');
+        // Toast Notification
+        function showToast(icon, message, type) {
+            const toast = document.getElementById('toast');
+            const toastIcon = document.getElementById('toastIcon');
+            const toastMessage = document.getElementById('toastMessage');
 
-            notif.className = 'notification ' + type;
-            notifIcon.textContent = icon;
-            notifText.textContent = text;
-
-            notif.classList.add('show');
+            toast.className = `toast alert-${type} show`;
+            toastIcon.textContent = icon;
+            toastMessage.textContent = message;
 
             setTimeout(() => {
-                notif.classList.remove('show');
+                toast.classList.remove('show');
             }, 4000);
         }
 
@@ -1645,278 +1671,6 @@
             document.getElementById('threatsBlocked').textContent = state.threatsBlocked;
             document.getElementById('filesScanned').textContent = state.filesScanned;
         }
-
-        // Keyboard shortcuts
-        document.addEventListener('keydown', (e) => {
-            if (e.ctrlKey || e.metaKey) {
-                switch(e.key) {
-                    case '1':
-                        e.preventDefault();
-                        showSection('dashboard');
-                        break;
-                    case '2':
-                        e.preventDefault();
-                        showSection('url-scanner');
-                        break;
-                    case '3':
-                        e.preventDefault();
-                        showSection('phone-scanner');
-                        break;
-                    case '4':
-                        e.preventDefault();
-                        showSection('message-analyzer');
-                        break;
-                    case '5':
-                        e.preventDefault();
-                        showSection('file-scanner');
-                        break;
-                }
-            }
-        });
-
-        // Sound effects
-        function playSound(frequency, duration) {
-            try {
-                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                const oscillator = audioContext.createOscillator();
-                const gainNode = audioContext.createGain();
-                
-                oscillator.connect(gainNode);
-                gainNode.connect(audioContext.destination);
-                
-                oscillator.frequency.value = frequency;
-                oscillator.type = 'sine';
-                
-                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
-                
-                oscillator.start(audioContext.currentTime);
-                oscillator.stop(audioContext.currentTime + duration);
-            } catch (e) {
-                // Sound not supported
-            }
-        }
-
-        // Add sound to notifications
-        const originalShowNotification = showNotification;
-        showNotification = function(icon, text, type) {
-            originalShowNotification(icon, text, type);
-            if (type === 'success') {
-                playSound(800, 0.2);
-            } else if (type === 'error') {
-                playSound(400, 0.3);
-            }
-        };
-
-        // Easter egg - Konami code
-        let konamiCode = [];
-        const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
-        
-        document.addEventListener('keydown', (e) => {
-            konamiCode.push(e.key);
-            if (konamiCode.length > konamiSequence.length) {
-                konamiCode.shift();
-            }
-            if (JSON.stringify(konamiCode) === JSON.stringify(konamiSequence)) {
-                showNotification('🎮', 'KONAMI CODE ACTIVATED! Ultra scan mode enabled!', 'info');
-                document.body.style.animation = 'none';
-                setTimeout(() => {
-                    document.body.style.animation = '';
-                }, 100);
-                konamiCode = [];
-            }
-        });
-
-        // Random cyber facts on dashboard
-        const cyberFacts = [
-            "💡 Over 90% of cyberattacks start with a phishing email",
-            "💡 A new malware variant is created every 4.2 seconds",
-            "💡 The average cost of a data breach is $4.24 million",
-            "💡 68% of business leaders feel their cybersecurity risks are increasing",
-            "💡 95% of cybersecurity breaches are caused by human error",
-            "💡 There will be a ransomware attack every 11 seconds by 2025",
-            "💡 Only 5% of companies' folders are properly protected on average"
-        ];
-
-        setInterval(() => {
-            if (document.getElementById('dashboard').classList.contains('active')) {
-                const fact = cyberFacts[Math.floor(Math.random() * cyberFacts.length)];
-                const factElement = document.getElementById('cyberFact');
-                if (factElement) {
-                    factElement.textContent = fact;
-                    factElement.style.animation = 'none';
-                    setTimeout(() => {
-                        factElement.style.animation = 'sectionFadeIn 0.6s ease-out';
-                    }, 10);
-                }
-            }
-        }, 10000);
-
-        // Add cyber fact display to dashboard
-        const dashboardSection = document.getElementById('dashboard');
-        const factDiv = document.createElement('div');
-        factDiv.id = 'cyberFact';
-        factDiv.style.cssText = `
-            margin-top: 40px;
-            padding: 30px;
-            background: linear-gradient(135deg, rgba(20, 20, 31, 0.95), rgba(26, 26, 46, 0.95));
-            border: 2px solid var(--neon-cyan);
-            border-radius: 20px;
-            text-align: center;
-            font-size: 20px;
-            font-weight: 600;
-            color: var(--neon-cyan);
-            box-shadow: 0 0 40px rgba(0, 255, 249, 0.3);
-        `;
-        factDiv.textContent = cyberFacts[0];
-        dashboardSection.appendChild(factDiv);
-
-        // Add security tips section
-        const tipsDiv = document.createElement('div');
-        tipsDiv.style.cssText = `
-            margin-top: 40px;
-            padding: 40px;
-            background: linear-gradient(135deg, rgba(20, 20, 31, 0.95), rgba(26, 26, 46, 0.95));
-            border: 2px solid var(--neon-purple);
-            border-radius: 20px;
-            box-shadow: 0 0 40px rgba(176, 38, 255, 0.3);
-        `;
-        tipsDiv.innerHTML = `
-            <h2 style="font-family: 'Orbitron', sans-serif; font-size: 32px; color: var(--neon-purple); text-shadow: 0 0 20px var(--neon-purple); margin-bottom: 30px; text-align: center;">🛡️ SECURITY BEST PRACTICES</h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
-                <div style="background: rgba(0, 0, 0, 0.3); padding: 25px; border-radius: 15px; border-left: 4px solid var(--neon-cyan);">
-                    <h3 style="color: var(--neon-cyan); margin-bottom: 10px; font-family: 'Orbitron', sans-serif;">🔐 Strong Passwords</h3>
-                    <p style="opacity: 0.8; line-height: 1.6;">Use unique passwords for each account with at least 12 characters including numbers, symbols, and mixed case letters.</p>
-                </div>
-                <div style="background: rgba(0, 0, 0, 0.3); padding: 25px; border-radius: 15px; border-left: 4px solid var(--neon-green);">
-                    <h3 style="color: var(--neon-green); margin-bottom: 10px; font-family: 'Orbitron', sans-serif;">🔄 Regular Updates</h3>
-                    <p style="opacity: 0.8; line-height: 1.6;">Keep your operating system, apps, and antivirus software updated to protect against the latest threats.</p>
-                </div>
-                <div style="background: rgba(0, 0, 0, 0.3); padding: 25px; border-radius: 15px; border-left: 4px solid var(--neon-pink);">
-                    <h3 style="color: var(--neon-pink); margin-bottom: 10px; font-family: 'Orbitron', sans-serif;">📧 Email Vigilance</h3>
-                    <p style="opacity: 0.8; line-height: 1.6;">Never click suspicious links or download attachments from unknown senders. Verify sender authenticity first.</p>
-                </div>
-                <div style="background: rgba(0, 0, 0, 0.3); padding: 25px; border-radius: 15px; border-left: 4px solid var(--neon-purple);">
-                    <h3 style="color: var(--neon-purple); margin-bottom: 10px; font-family: 'Orbitron', sans-serif;">🔒 Enable 2FA</h3>
-                    <p style="opacity: 0.8; line-height: 1.6;">Activate two-factor authentication on all accounts that support it for an extra layer of security.</p>
-                </div>
-                <div style="background: rgba(0, 0, 0, 0.3); padding: 25px; border-radius: 15px; border-left: 4px solid var(--neon-orange);">
-                    <h3 style="color: var(--neon-orange); margin-bottom: 10px; font-family: 'Orbitron', sans-serif;">💾 Regular Backups</h3>
-                    <p style="opacity: 0.8; line-height: 1.6;">Backup important data regularly to multiple locations including offline storage to protect against ransomware.</p>
-                </div>
-                <div style="background: rgba(0, 0, 0, 0.3); padding: 25px; border-radius: 15px; border-left: 4px solid var(--neon-blue);">
-                    <h3 style="color: var(--neon-blue); margin-bottom: 10px; font-family: 'Orbitron', sans-serif;">🌐 Secure Networks</h3>
-                    <p style="opacity: 0.8; line-height: 1.6;">Avoid public WiFi for sensitive transactions. Use VPN when connecting to untrusted networks.</p>
-                </div>
-            </div>
-        `;
-        dashboardSection.appendChild(tipsDiv);
-
-        // Add footer
-        const footer = document.createElement('footer');
-        footer.style.cssText = `
-            margin-top: 60px;
-            padding: 30px;
-            text-align: center;
-            border-top: 2px solid rgba(0, 255, 249, 0.2);
-            opacity: 0.6;
-        `;
-        footer.innerHTML = `
-            <p style="font-family: 'Orbitron', sans-serif; font-size: 14px; margin-bottom: 10px;">CYBERGUARD PRO v2.0</p>
-            <p style="font-size: 12px;">Advanced AI-Powered Security Suite | Protecting Users Worldwide</p>
-            <p style="font-size: 11px; margin-top: 10px; opacity: 0.5;">© 2025 CyberGuard Pro. All rights reserved.</p>
-            <p style="font-size: 11px; margin-top: 15px;">Keyboard Shortcuts: Ctrl+1-5 to navigate sections</p>
-        `;
-        document.querySelector('.container').appendChild(footer);
-
-        // Initialize welcome message
-        setTimeout(() => {
-            showNotification('🛡️', 'CyberGuard Pro initialized successfully!', 'info');
-        }, 1000);
-
-        // Add real-time threat counter animation
-        function animateCounter(element, target, duration = 2000) {
-            const start = parseInt(element.textContent) || 0;
-            const increment = (target - start) / (duration / 16);
-            let current = start;
-
-            const timer = setInterval(() => {
-                current += increment;
-                if ((increment > 0 && current >= target) || (increment < 0 && current <= target)) {
-                    current = target;
-                    clearInterval(timer);
-                }
-                element.textContent = Math.floor(current);
-            }, 16);
-        }
-
-        // Simulate real-time threat detection
-        setInterval(() => {
-            if (Math.random() > 0.7 && document.getElementById('dashboard').classList.contains('active')) {
-                const randomThreat = [
-                    'Phishing attempt blocked',
-                    'Malware signature detected',
-                    'Suspicious connection blocked',
-                    'Unauthorized access prevented'
-                ][Math.floor(Math.random() * 4)];
-                
-                // Subtle notification that doesn't interrupt
-                console.log(`🛡️ ${randomThreat}`);
-            }
-        }, 30000);
-
-        // Add matrix rain effect to background (optional Easter egg)
-        function createMatrixRain() {
-            const canvas = document.createElement('canvas');
-            canvas.style.cssText = `
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                pointer-events: none;
-                opacity: 0.05;
-                z-index: 1;
-            `;
-            document.body.appendChild(canvas);
-
-            const ctx = canvas.getContext('2d');
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-
-            const chars = '01アイウエオカキクケコサシスセソタチツテト';
-            const fontSize = 14;
-            const columns = canvas.width / fontSize;
-            const drops = Array(Math.floor(columns)).fill(1);
-
-            function draw() {
-                ctx.fillStyle = 'rgba(10, 10, 15, 0.05)';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-                ctx.fillStyle = '#00fff9';
-                ctx.font = fontSize + 'px monospace';
-
-                for (let i = 0; i < drops.length; i++) {
-                    const text = chars[Math.floor(Math.random() * chars.length)];
-                    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-                    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                        drops[i] = 0;
-                    }
-                    drops[i]++;
-                }
-            }
-
-            setInterval(draw, 50);
-
-            window.addEventListener('resize', () => {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-            });
-        }
-
-        // Uncomment to enable matrix rain effect
-        // createMatrixRain();
     </script>
 </body>
 </html>
